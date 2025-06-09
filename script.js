@@ -129,7 +129,7 @@ function displayPoem(segmentId) {
     if (userName && currentPoemText.includes("[Reader's Name]")) {
         currentPoemText = currentPoemText.replace("[Reader's Name]", userName);
     }
-    
+
     poemDisplay.innerText = currentPoemText; // Display the poem text
     choicesContainer.innerHTML = ''; // Clear previous choices
 
@@ -163,9 +163,41 @@ function askForNameAndStart() {
 
     // Modify the initial poem text to include the user's name
     poemData["start"].text = `Welcome, ${userName}, to this journey...\n\nBetween the sunset's soft embrace,\na silent promise, etched with grace.\nMy steps dance on the edge of time's space,\nseeking meaning in this heart's maze.`;
-    
+
     displayPoem("start"); // Start displaying the poem from the beginning
+
+    // Coba putar musik secara otomatis setelah pengguna berinteraksi (mengisi prompt)
+    // Ini lebih mungkin berhasil daripada autoplay langsung saat halaman dimuat
+    if (backgroundMusic && !isMusicPlaying) {
+        backgroundMusic.play().then(() => {
+            isMusicPlaying = true;
+            musicToggleButton.innerText = "🔇 Hentikan Musik";
+        }).catch(error => {
+            console.warn("Autoplay was prevented by browser, user can click the button:", error);
+        });
+    }
 }
 
 // Initialize the poem when the page loads
 window.onload = askForNameAndStart;
+
+
+// --- Kode untuk Kontrol Musik ---
+const backgroundMusic = document.getElementById('background-music');
+const musicToggleButton = document.getElementById('music-toggle');
+let isMusicPlaying = false; // Status musik
+
+// Event listener untuk tombol play/pause musik
+musicToggleButton.addEventListener('click', () => {
+    if (isMusicPlaying) {
+        backgroundMusic.pause();
+        musicToggleButton.innerText = "🎵 Putar Musik";
+    } else {
+        backgroundMusic.play().catch(error => {
+            console.error("Autoplay prevented:", error);
+            alert("Browser memblokir pemutaran musik otomatis. Silakan klik tombol ini lagi jika Anda ingin memutar musik.");
+        });
+        musicToggleButton.innerText = "🔇 Hentikan Musik";
+    }
+    isMusicPlaying = !isMusicPlaying; // Toggle status
+});

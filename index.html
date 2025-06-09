@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silent Steps and Soul's Roar: A Choose Your Own Adventure Poem</title>
+    <meta name="description" content="Masuklah ke dalam 'Silent Steps and Soul's Roar', sebuah puisi interaktif yang memanggil Anda untuk menjadi bagian dari narasinya. Setiap pilihan akan membentuk alur dan mengungkap ending unik.">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <audio id="background-music" loop>
+        <source src="https://raw.githubusercontent.com/nazla1603/MyPoemWeb/main/your_music_file.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="music-toggle" class="music-button">🎵 Putar Musik</button>
+
     <div class="container">
         <h1 class="poem-title">Silent Steps and Soul's Roar</h1>
         <div id="poem-display" class="poem-text">
@@ -15,6 +23,7 @@
         <div id="choices-container" class="choices">
             </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
